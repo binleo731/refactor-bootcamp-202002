@@ -6,18 +6,21 @@ public class Fibonacci {
     private static final int MAX_POSITION = 51;
 
     long calculate(int position) {
-        if (position < 1 || position >= MAX_POSITION) {
+        if (isIndexOutOf(position)) {
             throw new ArrayIndexOutOfBoundsException();
-        }
-
-        if (position < MIN_INDEX) {
-            return 1;
         } else {
             return calculateResult(position);
         }
     }
 
+    private boolean isIndexOutOf(int position) {
+        return position < 1 || position >= MAX_POSITION;
+    }
+
     private long calculateResult(int position) {
+        if (position < MIN_INDEX) {
+            return 1;
+        }
         long[] result = new long[MAX_POSITION];
         result[1] = result[2] = 1;
         for (int i = MIN_INDEX; i <= position; i++) {
