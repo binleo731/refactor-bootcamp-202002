@@ -8,24 +8,36 @@ package cc.xpbootcamp.warmup.cashier;
  *
  */
 public class OrderReceipt {
+    private static final String SALES_TAX = "Sales Tax";
+    private static final String TOTAL_AMOUNT = "Total Amount";
     private Order order;
+    private StringBuilder receiptOutput;
+    private double totSalesTx = 0d;
+    private double tot = 0d;
 
     public OrderReceipt(Order order) {
         this.order = order;
     }
 
     public String printReceipt() {
-        StringBuilder receiptOutput = new StringBuilder();
+        receiptOutput = new StringBuilder();
+        addRareceiptOutputStringbuilder();
+        return receiptOutput.toString();
+    }
 
-        // print headers
-        receiptOutput.append("======Printing Orders======\n");
+    private void addRareceiptOutputStringbuilder() {
+        addHeaders();
+        addCustomerInfo();
+        addLineItems();
+        addTheStateTax(SALES_TAX, totSalesTx);
+        addTheStateTax(TOTAL_AMOUNT, tot);
+    }
 
-        receiptOutput.append(order.getCustomerName());
-        receiptOutput.append(order.getCustomerAddress());
+    private void addTheStateTax(String s, double totSalesTx) {
+        receiptOutput.append(s).append('\t').append(totSalesTx);
+    }
 
-        // prints lineItems
-        double totSalesTx = 0d;
-        double tot = 0d;
+    private void addLineItems() {
         for (LineItem lineItem : order.getLineItems()) {
             receiptOutput.append(lineItem.getDescription());
             receiptOutput.append('\t');
@@ -39,13 +51,15 @@ public class OrderReceipt {
             totSalesTx += getSalesTax(lineItem);
             tot += getTot(lineItem);
         }
+    }
 
-        // prints the state tax
-        receiptOutput.append("Sales Tax").append('\t').append(totSalesTx);
+    private void addCustomerInfo() {
+        receiptOutput.append(order.getCustomerName());
+        receiptOutput.append(order.getCustomerAddress());
+    }
 
-        // print total amount
-        receiptOutput.append("Total Amount").append('\t').append(tot);
-        return receiptOutput.toString();
+    private void addHeaders() {
+        receiptOutput.append("======Printing Orders======\n");
     }
 
     private double getTot(LineItem lineItem) {
