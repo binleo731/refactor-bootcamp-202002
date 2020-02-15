@@ -1,6 +1,7 @@
 package cc.xpbootcamp.warmup.fibonacci;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class FibonacciTest {
@@ -42,5 +43,16 @@ class FibonacciTest {
         long result = fibonacci.calculate(50);
         //then
         Assert.assertEquals(12586269025L, result);
+    }
+
+    @Test
+    void should_throw_index_out_of_exception_when_calculate_given_position_is_0() {
+        //given
+        Fibonacci fibonacci = new Fibonacci();
+        //when
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            fibonacci.calculate(0);
+        });
+
     }
 }
