@@ -1,30 +1,30 @@
 package cc.xpbootcamp.warmup.cashier;
 
 public class LineItem {
-	private String desc;
+	private String description;
 	private double price;
-	private int qty;
+	private int quantity;
 
-	public LineItem(String desc, double price, int qty) {
+	public LineItem(String description, double price, int quantity) {
 		super();
-		this.desc = desc;
+		this.description = description;
 		this.price = price;
-		this.qty = qty;
+		this.quantity = quantity;
 	}
 
-	public String getDescription() {
-		return desc;
+	String getDescription() {
+		return description;
 	}
 
-	public double getPrice() {
+	double getPrice() {
 		return price;
 	}
 
-	public int getQuantity() {
-		return qty;
+	int getQuantity() {
+		return quantity;
 	}
 
     double totalAmount() {
-        return price * qty;
+        return price * quantity;
     }
 }
