@@ -10,6 +10,8 @@ package cc.xpbootcamp.warmup.cashier;
 public class OrderReceipt {
     private static final String SALES_TAX = "Sales Tax";
     private static final String TOTAL_AMOUNT = "Total Amount";
+    private static final String PRINTING_ORDERS = "======Printing Orders======\n";
+    private static final double DOUBLE = .10;
     private Order order;
     private StringBuilder receiptOutput;
     private double totSalesTx = 0d;
@@ -21,11 +23,11 @@ public class OrderReceipt {
 
     public String printReceipt() {
         receiptOutput = new StringBuilder();
-        addRareceiptOutputStringbuilder();
+        generatorOrderReceipt();
         return receiptOutput.toString();
     }
 
-    private void addRareceiptOutputStringbuilder() {
+    private void generatorOrderReceipt() {
         addHeaders();
         addCustomerInfo();
         addLineItems();
@@ -59,7 +61,7 @@ public class OrderReceipt {
     }
 
     private void addHeaders() {
-        receiptOutput.append("======Printing Orders======\n");
+        receiptOutput.append(PRINTING_ORDERS);
     }
 
     private double getTot(LineItem lineItem) {
@@ -67,6 +69,6 @@ public class OrderReceipt {
     }
 
     private double getSalesTax(LineItem lineItem) {
-        return lineItem.totalAmount() * .10;
+        return lineItem.totalAmount() * DOUBLE;
     }
 }
