@@ -7,9 +7,9 @@ class FibonacciTest {
     @Test
     void should_return_1_when_calculate_given_position_is_1() {
         //given
-        Fibonacci fibonacci = new Fibonacci(1);
+        Fibonacci fibonacci = new Fibonacci();
         //when
-        long result = fibonacci.calculate();
+        long result = fibonacci.calculate(1);
         //then
         Assert.assertEquals(1, result);
     }
@@ -17,10 +17,20 @@ class FibonacciTest {
     @Test
     void should_return_3_when_calculate_given_position_is_4() {
         //given
-        Fibonacci fibonacci = new Fibonacci(4);
+        Fibonacci fibonacci = new Fibonacci();
         //when
-        long result = fibonacci.calculate();
+        long result = fibonacci.calculate(4);
         //then
         Assert.assertEquals(3, result);
+    }
+
+    @Test
+    void should_return_8_when_calculate_given_position_is_6() {
+        //given
+        Fibonacci fibonacci = new Fibonacci();
+        //when
+        long result = fibonacci.calculate(6);
+        //then
+        Assert.assertEquals(8, result);
     }
 }

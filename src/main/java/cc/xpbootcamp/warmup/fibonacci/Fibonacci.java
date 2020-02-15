@@ -1,16 +1,11 @@
 package cc.xpbootcamp.warmup.fibonacci;
 
 public class Fibonacci {
-    private long position;
 
-    public Fibonacci(long position) {
-        this.position = position;
-    }
-
-    public long calculate() {
-        if (position == 4) {
-            return 3;
+    long calculate(long position) {
+        if (position == 1 || position == 2) {
+            return 1;
         }
-        return position;
+        return calculate(position - 1) + calculate(position - 2);
     }
 }
