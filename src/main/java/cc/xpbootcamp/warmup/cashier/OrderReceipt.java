@@ -21,10 +21,8 @@ public class OrderReceipt {
         output.append("======Printing Orders======\n");
 
         // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
 
         // prints lineItems
         double totSalesTx = 0d;
@@ -43,7 +41,6 @@ public class OrderReceipt {
             double salesTax = lineItem.totalAmount() * .10;
             totSalesTx += salesTax;
 
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
             tot += lineItem.totalAmount() + salesTax;
         }
 
