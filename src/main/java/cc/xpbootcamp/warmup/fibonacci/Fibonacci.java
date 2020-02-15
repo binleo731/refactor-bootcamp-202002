@@ -6,14 +6,14 @@ public class Fibonacci {
     private static final int MAX_POSITION = 51;
 
     long calculate(int position) {
-        if (isIndexOutOf(position)) {
+        if (isIndexOutOfBounds(position)) {
             throw new ArrayIndexOutOfBoundsException();
         } else {
             return calculateResult(position);
         }
     }
 
-    private boolean isIndexOutOf(int position) {
+    private boolean isIndexOutOfBounds(int position) {
         return position < 1 || position >= MAX_POSITION;
     }
 
