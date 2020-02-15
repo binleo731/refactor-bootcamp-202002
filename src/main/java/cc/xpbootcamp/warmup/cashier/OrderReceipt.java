@@ -15,27 +15,27 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
+        StringBuilder receiptOutput = new StringBuilder();
 
         // print headers
-        output.append("======Printing Orders======\n");
+        receiptOutput.append("======Printing Orders======\n");
 
         // print date, bill no, customer name
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        receiptOutput.append(order.getCustomerName());
+        receiptOutput.append(order.getCustomerAddress());
 
         // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
+            receiptOutput.append(lineItem.getDescription());
+            receiptOutput.append('\t');
+            receiptOutput.append(lineItem.getPrice());
+            receiptOutput.append('\t');
+            receiptOutput.append(lineItem.getQuantity());
+            receiptOutput.append('\t');
+            receiptOutput.append(lineItem.totalAmount());
+            receiptOutput.append('\n');
 
             // calculate sales tax @ rate of 10%
             double salesTax = lineItem.totalAmount() * .10;
@@ -45,10 +45,10 @@ public class OrderReceipt {
         }
 
         // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
+        receiptOutput.append("Sales Tax").append('\t').append(totSalesTx);
 
         // print total amount
-        output.append("Total Amount").append('\t').append(tot);
-        return output.toString();
+        receiptOutput.append("Total Amount").append('\t').append(tot);
+        return receiptOutput.toString();
     }
 }
