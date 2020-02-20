@@ -17,7 +17,7 @@ public class OrderReceipt {
     private static final double DOUBLE = .10;
     private double totalPrice = 0d;
     private double tax = 0d;
-    private double discount = 0d;
+    private double discountPrice = 0d;
 
     public OrderReceipt(SuperMarketOrder order, Template template) {
         this.order = order;
@@ -28,7 +28,7 @@ public class OrderReceipt {
         calculate();
         return template.getTemplate(order.getLineItems(),
                 String.format("%.2f", tax),
-                String.format("%.2f", discount),
+                String.format("%.2f", discountPrice),
                 String.format("%.2f", totalPrice));
     }
 
@@ -38,8 +38,9 @@ public class OrderReceipt {
             totalPrice += lineItem.totalAmount() + lineItem.totalAmount() * DOUBLE;
         }
         if (order.isDiscount()) {
-            discount = totalPrice - totalPrice * order.getDiscount();
-            totalPrice = totalPrice * order.getDiscount();
+            double afterDiscountTotalPrice = totalPrice * order.getDiscount();
+            discountPrice = totalPrice - afterDiscountTotalPrice;
+            totalPrice = afterDiscountTotalPrice;
         }
     }
 }
