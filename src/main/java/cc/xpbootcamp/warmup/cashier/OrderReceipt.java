@@ -26,6 +26,10 @@ public class OrderReceipt {
 
     public String printReceipt() {
         calculatePrice();
+        return getTemplateString();
+    }
+
+    private String getTemplateString() {
         return template.getTemplate(order.getLineItems(),
                 String.format("%.2f", tax),
                 String.format("%.2f", discountPrice),
