@@ -20,13 +20,16 @@ public class SuperMarketOrder implements Order {
         return lineItemList;
     }
 
-    public boolean isDiscount() {
+    private boolean isDiscount() {
         DateFormat df = DateFormat.getDateInstance(DateFormat.FULL, Locale.CHINA);
         String date = df.format(new Date());
         return date.contains(DISCOUNT_DAY);
     }
 
     public double getDiscount() {
-        return DISCOUNT;
+        if (isDiscount()) {
+            return DISCOUNT;
+        }
+        return 1;
     }
 }

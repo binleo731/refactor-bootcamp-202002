@@ -14,7 +14,7 @@ public class OrderReceipt {
 
     private Order order;
     private Template template;
-    private static final double DOUBLE = .10;
+    private static final double RATE = .10;
     private double totalPrice = 0d;
     private double tax = 0d;
     private double discountPrice = 0d;
@@ -25,22 +25,21 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        calculate();
+        calculatePrice();
         return template.getTemplate(order.getLineItems(),
                 String.format("%.2f", tax),
                 String.format("%.2f", discountPrice),
                 String.format("%.2f", totalPrice));
     }
 
-    private void calculate() {
+    private void calculatePrice() {
         for (LineItem lineItem : order.getLineItems()) {
-            tax += lineItem.totalAmount() * DOUBLE;
-            totalPrice += lineItem.totalAmount() + lineItem.totalAmount() * DOUBLE;
+            tax += lineItem.totalAmount() * RATE;
+            totalPrice += lineItem.totalAmount() + lineItem.totalAmount() * RATE;
         }
-        if (order.isDiscount()) {
-            double afterDiscountTotalPrice = totalPrice * order.getDiscount();
-            discountPrice = totalPrice - afterDiscountTotalPrice;
-            totalPrice = afterDiscountTotalPrice;
-        }
+
+        double afterDiscountTotalPrice = totalPrice * order.getDiscount();
+        discountPrice = totalPrice - afterDiscountTotalPrice;
+        totalPrice = afterDiscountTotalPrice;
     }
 }

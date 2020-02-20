@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SuperMarketTemplate implements Template {
+    private static final String NOT_DISCOUNT = "0.00";
     private static final String HEADER = "===== 老王超市，值得信赖 ======";
     private static final String DIVIDER = "-----------------------------------";
     private static final String TAX_S = "税额: %s\n";
@@ -45,7 +46,7 @@ public class SuperMarketTemplate implements Template {
     private void addFooter(String tax, String discount, String totalPrice) {
         stringBuilder.append(String.format("%s\n", DIVIDER));
         stringBuilder.append(String.format(TAX_S, tax));
-        if (!"0.00".equals(discount)) {
+        if (!NOT_DISCOUNT.equals(discount)) {
             stringBuilder.append(String.format(DISCOUNT_S, discount));
         }
         stringBuilder.append(String.format(TOTAL_PRICE_S, totalPrice));
