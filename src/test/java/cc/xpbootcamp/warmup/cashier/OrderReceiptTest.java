@@ -1,7 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import cc.xpbootcamp.warmup.cashier.template.ChineseTemplate;
-import org.junit.Ignore;
+import cc.xpbootcamp.warmup.cashier.order.SuperMarketOrder;
+import cc.xpbootcamp.warmup.cashier.template.SuperMarketTemplate;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ class OrderReceiptTest {
     @Test
     void shouldPrintHeaderOnOrder() {
 
-        ChineseTemplate chineseTemplate = new ChineseTemplate();
+        SuperMarketTemplate chineseTemplate = new SuperMarketTemplate();
         ArrayList<LineItem> lineItems = new ArrayList<>();
-        String template = chineseTemplate.getTemplate(lineItems, 1, 1, 1);
+        String template = chineseTemplate.getTemplate(lineItems, "", "", "");
 
         assertThat(template, containsString("===== 老王超市，值得信赖 ======"));
         assertThat(template, containsString("-----------------------------------"));
@@ -25,7 +25,6 @@ class OrderReceiptTest {
         assertThat(template, containsString("总价"));
     }
 
-    @Ignore
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {{
@@ -33,15 +32,15 @@ class OrderReceiptTest {
             add(new LineItem("biscuits", 5.0, 5));
             add(new LineItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(lineItems), new ChineseTemplate());
+        OrderReceipt receipt = new OrderReceipt(new SuperMarketOrder(lineItems), new SuperMarketTemplate());
 
         String output = receipt.printReceipt();
 
-        assertThat(output, containsString("milk\t10.0\t2\t20.0\n"));
-        assertThat(output, containsString("biscuits\t5.0\t5\t25.0\n"));
-        assertThat(output, containsString("chocolate\t20.0\t1\t20.0\n"));
-        assertThat(output, containsString("Sales Tax\t6.5"));
-        assertThat(output, containsString("Total Amount\t71.5"));
+        assertThat(output, containsString("milk,10.00 x 2,20.00\n"));
+        assertThat(output, containsString("biscuits,5.00 x 5,25.00\n"));
+        assertThat(output, containsString("chocolate,20.00 x 1,20.00\n"));
+        assertThat(output, containsString("税额: 6.50"));
+        assertThat(output, containsString("总价: 71.50"));
     }
 
 }

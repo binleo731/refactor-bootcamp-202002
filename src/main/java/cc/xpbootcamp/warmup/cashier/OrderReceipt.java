@@ -1,5 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.cashier.order.Order;
+import cc.xpbootcamp.warmup.cashier.order.SuperMarketOrder;
 import cc.xpbootcamp.warmup.cashier.template.Template;
 
 /**
@@ -15,21 +17,29 @@ public class OrderReceipt {
     private static final double DOUBLE = .10;
     private double totalPrice = 0d;
     private double tax = 0d;
+    private double discount = 0d;
 
-    public OrderReceipt(Order order, Template template) {
+    public OrderReceipt(SuperMarketOrder order, Template template) {
         this.order = order;
         this.template = template;
     }
 
     public String printReceipt() {
         calculate();
-        return template.getTemplate(order.getLineItems(), tax, 0, totalPrice);
+        return template.getTemplate(order.getLineItems(),
+                String.format("%.2f", tax),
+                String.format("%.2f", discount),
+                String.format("%.2f", totalPrice));
     }
 
     private void calculate() {
         for (LineItem lineItem : order.getLineItems()) {
             tax += lineItem.totalAmount() * DOUBLE;
             totalPrice += lineItem.totalAmount() + lineItem.totalAmount() * DOUBLE;
+        }
+        if (order.isDiscount()) {
+            discount = totalPrice - totalPrice * order.getDiscount();
+            totalPrice = totalPrice * order.getDiscount();
         }
     }
 }
