@@ -1,5 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.cashier.template.ChineseTemplate;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,17 +12,20 @@ import static org.hamcrest.Matchers.containsString;
 
 class OrderReceiptTest {
     @Test
-    void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
-        OrderReceipt receipt = new OrderReceipt(order);
+    void shouldPrintHeaderOnOrder() {
 
-        String output = receipt.printReceipt();
+        ChineseTemplate chineseTemplate = new ChineseTemplate();
+        ArrayList<LineItem> lineItems = new ArrayList<>();
+        String template = chineseTemplate.getTemplate(lineItems, 1, 1, 1);
 
-
-        assertThat(output, containsString("Mr X"));
-        assertThat(output, containsString("Chicago, 60601"));
+        assertThat(template, containsString("===== 老王超市，值得信赖 ======"));
+        assertThat(template, containsString("-----------------------------------"));
+        assertThat(template, containsString("税额"));
+        assertThat(template, containsString("折扣"));
+        assertThat(template, containsString("总价"));
     }
 
+    @Ignore
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {{
@@ -28,7 +33,7 @@ class OrderReceiptTest {
             add(new LineItem("biscuits", 5.0, 5));
             add(new LineItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+        OrderReceipt receipt = new OrderReceipt(new Order(lineItems), new ChineseTemplate());
 
         String output = receipt.printReceipt();
 
